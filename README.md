@@ -1,2 +1,2 @@
 # AntRepellent
-Data and code for ant repellent project
+This respository contains the data (in csv files) and the R script to reproduce analyses and figures.
