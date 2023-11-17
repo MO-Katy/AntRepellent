@@ -7,11 +7,11 @@ setwd("/Users/tkay/Desktop/Work/Repellent")
 LasDF <- read.csv("Lasius.csv", header = TRUE, check.names = FALSE)
 LasDF <- LasDF[,order(colMeans(LasDF))]
 LasDF_FORCOL <- LasDF[colnames(LasDF) %in% c("Control", "2-HydroxyBA", "2-BromoBA", "2-EthoxyBA", "2-MethoxyBA")]
+WasDF <- read.csv("Wasmannia.csv", header = TRUE, check.names = FALSE)
 LasDF_trimmed <- LasDF[colnames(LasDF)%in%colnames(WasDF)]
 LasDF_trimmed <- LasDF_trimmed[c(5,3,2,4,1)]
 LasCol <- rainbow(5, alpha = 0.4)
 LasCol_All <- rainbow(18, alpha = 0.4)
-WasDF <- read.csv("Wasmannia.csv", header = TRUE, check.names = FALSE)
 WasCol <- LasCol[colnames(LasDF_FORCOL) %in% colnames(WasDF)]
 ParDF <- read.csv("Paratrechina.csv", header = TRUE, check.names = FALSE)
 ParCol <- LasCol[colnames(LasDF_FORCOL) %in% colnames(ParDF)]
@@ -21,7 +21,7 @@ TapDF <- read.csv("Tapinoma.csv", header = TRUE, check.names = FALSE)
 TapCol <- LasCol[colnames(LasDF_FORCOL) %in% colnames(TapDF)]
 
 # Lasius boxplot (Fig. 1)
-jpeg('Las_boxplot.jpg', width=6000, height=3000, unit='px')
+pdf('Las_boxplot.pdf', width=80, height=40)
 par(mfrow=c(1,1), mar = c(1,1,1,1), mai = c(12,5,1,1), mgp = c(5, 5, 0), family = 'serif', bty="n")
 boxplot(LasDF, col="darkgray", las=2, cex=3, ylab ="Time (seconds)", yaxt = "n", xaxt = "n",
         cex.axis = 5, cex.lab = 10, boxlwd = 8, lwd = 5, medlwd = 15)
@@ -29,12 +29,12 @@ axis(2, at = c(0,1200), labels = TRUE, tick = TRUE, lwd = 8, cex.axis = 10)
 axis(1, at = c(1:18), labels = c("citrus", "control", "3-hydroxyBA", "4-hydroxyBA", "hexanoic acid", "cis-2-hexenol", "AITC",
                                  "2-phenoxyBA", "trans-2-hexenol", "2-butoxyBA", "2-methylBA", "2-propoxyBA", "2-aminoBA",
                                  "BA", "2-hydroxyBA", "2-bromoBA", "2-ethoxyBA", "2-methoxyBA"),
-     tick = TRUE, lwd = 8, cex.axis = 10, las = 2)
+     tick = TRUE, lwd = 8, cex.axis = 8, las = 2)
 points(1:ncol(LasDF), colMeans(LasDF), col="red", pch=18, cex=12)
 dev.off()
 
 # Comparative boxplot (Fig. 2)
-jpeg('Comparative_boxplot.jpg', width=3000, height=4000, unit='px')
+pdf('Comparative_boxplot.pdf', width=45, height=60)
 par(mfrow=c(3,2), mar = c(2,2,2,2), mai = c(3,5,3,3), mgp = c(15, 5, 0), family = 'serif', bty="n")
 boxplot(LasDF_trimmed, col=WasCol, las=2, cex=3, xaxt = "n", ylab ="Time (seconds)", yaxt = "n",
         cex.axis = 5, cex.lab = 10, boxlwd = 8, lwd = 10, medlwd = 20, main = expression(italic("Lasius niger")), cex.main = 10)
